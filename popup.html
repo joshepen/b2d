@@ -1,65 +1,136 @@
 <html>
 
 <head>
+
 	<style>
+		* {
+			box-sizing: border-box;
+		}
+
 		body {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			flex-direction: column;
-			width: 250px;
-			background: #f4f4f9;
-			font-family: Arial, sans-serif;
+			margin: 0;
+			padding: 12px;
+			width: 260px;
+			background: linear-gradient(180deg, #f4f4f9, #ececf3);
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+				sans-serif;
+			color: #333;
 		}
 
-		.download-btn {
-			display: inline-flex;
-			align-items: center;
-			gap: 8px;
-			padding: 12px 24px;
-			font-size: 16px;
-			font-weight: bold;
-			color: #fff;
-			background: linear-gradient(135deg, #6a11cb, #2575fc);
-			border: none;
-			border-radius: 8px;
-			cursor: pointer;
-			text-decoration: none;
-			transition: transform 0.2s, box-shadow 0.2s;
+		/* Container card */
+		body>div {
+			background: #fff;
+			border-radius: 12px;
+			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+			padding: 12px;
+			gap: 10px;
 		}
 
+		/* Lists */
 		ul {
-			padding-inline-start: 0;
-			margin-block-start: 0;
-			margin-block-end: 0;
-			list-style-type: none;
-			width: 100vw;
-			margin-left: 10px;
-			margin-right: 10px;
+			padding: 0;
+			margin: 0;
+			list-style: none;
+			width: 100%;
+		}
+
+		/* Select all row */
+		#check-all li {
+			font-weight: 600;
+			background: #f7f8fc;
+			border-radius: 8px;
+			padding: 8px;
+			margin-bottom: 6px;
+			cursor: pointer;
+		}
+
+		/* Bookmark list */
+		#bookmark-list {
+			max-height: 200px;
+			overflow-y: auto;
+			margin-bottom: 10px;
 		}
 
 		li {
-			overflow-x: hidden;
-			padding: 5px;
-			display: flex;
-			gap: 5px;
-		}
-
-		.list-label {
 			display: flex;
 			align-items: center;
+			gap: 8px;
+			padding: 8px;
+			border-radius: 8px;
+			cursor: pointer;
+			transition: background 0.15s ease, transform 0.1s ease;
+		}
+
+		li:hover {
+			background: #f2f4ff;
+		}
+
+		li:active {
+			transform: scale(0.98);
+		}
+
+		/* Checkbox */
+		input[type="checkbox"] {
+			accent-color: #5b6cff;
+			cursor: pointer;
+		}
+
+		/* Labels */
+		.list-label {
+			flex: 1;
+			font-size: 14px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		/* Download button */
+		.download-btn {
+			display: inline-flex;
+			justify-content: center;
+			align-items: center;
+			padding: 12px;
+			width: 100%;
+			font-size: 15px;
+			font-weight: 600;
+			color: #fff;
+			background: linear-gradient(135deg, #6a11cb, #2575fc);
+			border: none;
+			border-radius: 10px;
+			cursor: pointer;
+			transition: transform 0.15s ease, box-shadow 0.15s ease;
+		}
+
+		.download-btn:hover {
+			transform: translateY(-1px);
+			box-shadow: 0 6px 14px rgba(37, 117, 252, 0.35);
+		}
+
+		.download-btn:active {
+			transform: translateY(0);
+			box-shadow: 0 3px 8px rgba(37, 117, 252, 0.25);
+		}
+
+		/* Scrollbar (Chrome popup friendly) */
+		#bookmark-list::-webkit-scrollbar {
+			width: 6px;
+		}
+
+		#bookmark-list::-webkit-scrollbar-thumb {
+			background: #c7ccff;
+			border-radius: 6px;
 		}
 	</style>
 </head>
 
 <body>
-	<div style="display: flex;flex-direction: column; width: 100vw;">
+	<div style="display: flex;flex-direction: column; width: 100%;">
 		<ul id="check-all">
 			<li><input id="all-checkbox" type="checkbox" style="pointer-events: none" /><label
 					class="list-label">(De)Select
 					All</label></li>
 		</ul>
-		<ul id="bookmark-list" style="list-style-type:none; width: 100vw;"></ul>
+		<ul id="bookmark-list" style="list-style-type:none; width: 100%;"></ul>
 		<button id="download" class="download-btn">Download</button>
 	</div>
 	<script type="module" src="./popup.js"></script>
