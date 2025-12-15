@@ -1,5 +1,6 @@
 import { getBookmarks } from "./bookmarks.js";
+import { downloadBookmarks } from "./download.js";
 document.getElementById("download").onclick = async () => {
-  let bookmarks = await getBookmarks();
-  console.log(bookmarks);
+  const bookmarks = await getBookmarks();
+  downloadBookmarks(bookmarks);
 };

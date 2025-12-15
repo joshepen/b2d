@@ -9,5 +9,9 @@
 	"permissions": [
 		"bookmarks",
 		"downloads"
-	]
+	],
+	"background": {
+		"service_worker": "download.js",
+		"type": "module"
+	}
 }
