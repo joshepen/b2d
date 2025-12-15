@@ -1,0 +1,9 @@
+{
+  "name": "Bookmark to .desktop",
+  "description": "Convert bookmarks to .desktop files",
+  "version": "1.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
