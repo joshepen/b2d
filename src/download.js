@@ -1,6 +1,6 @@
 export async function downloadBookmarks(bookmarks) {
 	if (bookmarks.length > 1) {
-		asyndownloadBatch(bookmarks);
+		downloadBatch(bookmarks);
 	} else if (bookmarks.length === 1) {
 		downloadSingle(bookmarks[0]);
 	}

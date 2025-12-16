@@ -3,9 +3,9 @@ I hate using my mouse so I wanted to add my bookmarks to my application launcher
 
 ## Manual Installation / Run Instructions
 I don't really feel like paying the $5 to register this as an official chrome extension right now so:
-- Clone repo
-- Open chrome extensions page
-- Make sure developer mode is checked on in the top right corner
+- Clone repo: `git clone https://github.com/joshepen/b2b`
+- Open chrome extensions page: `chrome://extensions`
+- Make sure `Developer mode` is checked on in the top right corner
 - Click `Load unpacked` and select the repo folder
 
 ## Usage
