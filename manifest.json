@@ -5,11 +5,11 @@
 	"manifest_version": 3,
 	"action": {
 		"default_popup": "popup.html",
-		"default_icon": "folder.png"
+		"default_icon": "img/folder.png"
 	},
 	"permissions": ["bookmarks", "downloads"],
 	"background": {
-		"service_worker": "download.js",
+		"service_worker": "src/download.js",
 		"type": "module"
 	}
 }
