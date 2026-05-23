@@ -1,122 +1,11 @@
 <html>
 
 <head>
-
-	<style>
-		* {
-			box-sizing: border-box;
-		}
-
-		body {
-			margin: 0;
-			padding: 12px;
-			width: 260px;
-			background: linear-gradient(180deg, #f4f4f9, #ececf3);
-			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-				sans-serif;
-			color: #333;
-		}
-
-		body>div {
-			background: #fff;
-			border-radius: 12px;
-			box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-			padding: 12px;
-			gap: 10px;
-		}
-
-		ul {
-			padding: 0;
-			margin: 0;
-			list-style: none;
-			width: 100%;
-		}
-
-		#check-all li {
-			font-weight: 600;
-			background: #f7f8fc;
-			border-radius: 8px;
-			padding: 8px;
-			margin-bottom: 6px;
-			cursor: pointer;
-		}
-
-		#bookmark-list {
-			max-height: 200px;
-			overflow-y: auto;
-			margin-bottom: 10px;
-		}
-
-		li {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			padding: 8px;
-			border-radius: 8px;
-			cursor: pointer;
-			transition: background 0.15s ease, transform 0.1s ease;
-		}
-
-		li:hover {
-			background: #f2f4ff;
-		}
-
-		li:active {
-			transform: scale(0.98);
-		}
-
-		input[type="checkbox"] {
-			accent-color: #5b6cff;
-			cursor: pointer;
-		}
-
-		.list-label {
-			flex: 1;
-			font-size: 14px;
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-
-		.download-btn {
-			display: inline-flex;
-			justify-content: center;
-			align-items: center;
-			padding: 12px;
-			width: 100%;
-			font-size: 15px;
-			font-weight: 600;
-			color: #fff;
-			background: linear-gradient(135deg, #6a11cb, #2575fc);
-			border: none;
-			border-radius: 10px;
-			cursor: pointer;
-			transition: transform 0.15s ease, box-shadow 0.15s ease;
-		}
-
-		.download-btn:hover {
-			transform: translateY(-1px);
-			box-shadow: 0 6px 14px rgba(37, 117, 252, 0.35);
-		}
-
-		.download-btn:active {
-			transform: translateY(0);
-			box-shadow: 0 3px 8px rgba(37, 117, 252, 0.25);
-		}
-
-		#bookmark-list::-webkit-scrollbar {
-			width: 6px;
-		}
-
-		#bookmark-list::-webkit-scrollbar-thumb {
-			background: #c7ccff;
-			border-radius: 6px;
-		}
-	</style>
+	<link rel="stylesheet" href="css/pico.min.css" />
 </head>
 
 <body>
-	<div style="display: flex;flex-direction: column; width: 100%;">
+	<div style="display: flex;flex-direction: column; width: 200px;">
 		<ul id="check-all">
 			<li><input id="all-checkbox" type="checkbox" style="pointer-events: none" /><label
 					class="list-label">(De)Select
@@ -128,5 +17,6 @@
 	<script type="module" src="src/popup.js"></script>
 	<script src="lib/jszip.min.js"></script>
 </body>
+
 
 </html>
