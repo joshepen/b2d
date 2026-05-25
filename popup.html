@@ -5,13 +5,10 @@
 </head>
 
 <body>
-	<div style="display: flex;flex-direction: column; width: 200px;">
-		<ul id="check-all">
-			<li><input id="all-checkbox" type="checkbox" style="pointer-events: none" /><label
-					class="list-label">(De)Select
-					All</label></li>
-		</ul>
-		<ul id="bookmark-list" style="list-style-type:none; width: 100%;"></ul>
+	<div style="display: flex; flex-direction: column; width: 300px; margin: 5px;">
+		<div id="search-results-list" style="display:flex; flex-direction: column; width: 100%; gap: 4px"
+			hidden></div>
+		<div id="bookmark-tree" style="display:flex; flex-direction: column; width: 100%"></div>
 		<button id="download" class="download-btn">Download</button>
 	</div>
 	<script type="module" src="src/popup.js"></script>
