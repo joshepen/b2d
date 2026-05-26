@@ -2,14 +2,26 @@
 
 <head>
 	<link rel="stylesheet" href="css/pico.min.css" />
+	<style>
+		html,
+		body {
+			min-height: 0 !important;
+			height: fit-content !important;
+			margin: 0;
+		}
+	</style>
 </head>
 
 <body>
-	<div style="display: flex; flex-direction: column; width: 300px; margin: 5px;">
-		<div id="search-results-list" style="display:flex; flex-direction: column; width: 100%; gap: 4px"
-			hidden></div>
-		<div id="bookmark-tree" style="display:flex; flex-direction: column; width: 100%"></div>
-		<button id="download" class="download-btn">Download</button>
+	<div style="padding: 10px; background-color: #1d212d;">
+		<div
+			style="display: flex; flex-direction: column; width: 300px; background-color: #13161e; padding: 10px;">
+			<input type="search" id="search-bar" />
+			<div id="search-results-list"
+				style="display:flex; flex-direction: column; width: 100%; gap: 4px"></div>
+			<div id="bookmark-tree" style="display:flex; flex-direction: column; width: 100%"></div>
+			<button id="download" class="download-btn">Download</button>
+		</div>
 	</div>
 	<script type="module" src="src/popup.js"></script>
 	<script src="lib/jszip.min.js"></script>
