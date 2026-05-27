@@ -1,11 +1,11 @@
 import { getSelectedBookmarkIds, getBookmarkById } from "./filetree.js";
+import { bookmarkToString } from "./bookmark-utils.js";
 
 export function initDownloadButton(bookmarks) {
   const button = document.getElementById("download");
   button.addEventListener("click", async () => {
     const ids = getSelectedBookmarkIds();
     const selectedBookmarks = ids.map((id) => getBookmarkById(id, bookmarks));
-    // .filter((bookmark) => bookmark);
     await downloadBookmarks(selectedBookmarks);
   });
 }
@@ -15,20 +15,6 @@ async function downloadBookmarks(bookmarks) {
   } else if (bookmarks.length === 1) {
     downloadSingle(bookmarks[0]);
   }
-}
-
-function bookmarkToString(bookmark) {
-  const entries = {
-    Name: bookmark.title,
-    Exec: `xdg-open ${bookmark.url}`,
-    Type: "Application",
-    Categories: "Web;",
-  };
-  let text = "[Desktop Entry]";
-  Object.keys(entries).forEach((k) => {
-    text += `\n${k}=${entries[k]}`;
-  });
-  return text;
 }
 
 function downloadSingle(bookmark) {

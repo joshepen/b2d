@@ -4,8 +4,9 @@ const searchBarElement = document.getElementById("search-bar");
 
 export function initSearchBar() {
   searchBarElement.addEventListener("input", () => {
-    setSearchMode(searchBarElement.value != "");
-    updateSearchList(searchBarElement.value);
+    const term = searchBarElement.value;
+    setSearchMode(term != "");
+    updateSearchList(term);
   });
 }
 

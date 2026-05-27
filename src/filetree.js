@@ -1,5 +1,4 @@
-import { updateCheckbox } from "./bookmarks.js";
-// Stuff for making and updating the file tree
+import { updateCheckbox } from "./bookmark-utils.js";
 /*
  * Format of filetree:
  * 	Bookmark:
