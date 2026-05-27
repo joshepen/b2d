@@ -60,3 +60,27 @@ export function createFileTree(parentElement, bookmarkList) {
     }
   });
 }
+
+const treeElement = document.getElementById("bookmark-tree");
+export function getSelectedBookmarkIds() {
+  let bookmarkIds = [];
+  treeElement.querySelectorAll(".bookmark-item").forEach((div) => {
+    if (div.querySelector("input").checked) {
+      bookmarkIds.push(div.id);
+    }
+  });
+  return bookmarkIds;
+}
+
+export function getBookmarkById(id, bookmarks) {
+  if (!bookmarks) {
+    return;
+  }
+  for (const bookmark of bookmarks) {
+    if (bookmark.id === id) return bookmark;
+    if (bookmark.children) {
+      const found = getBookmarkById(id, bookmark.children);
+      if (found) return found;
+    }
+  }
+}

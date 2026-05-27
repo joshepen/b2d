@@ -12,10 +12,3 @@ export function updateCheckbox(element) {
     });
   }
 }
-
-export function updateCheckboxById(id, isChecked) {
-  const treeElement = document.getElementById("bookmark-tree");
-  const entry = treeElement.querySelector(`#${id}`);
-  entry.querySelector("input").checked = isChecked;
-  updateCheckbox(entry);
-}

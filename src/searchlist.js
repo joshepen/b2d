@@ -1,4 +1,3 @@
-import { updateCheckboxById } from "./bookmarks.js";
 const treeElement = document.getElementById("bookmark-tree");
 const searchListElement = document.getElementById("search-results-list");
 const searchBarElement = document.getElementById("search-bar");
