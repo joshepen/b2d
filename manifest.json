@@ -7,5 +7,5 @@
 		"default_popup": "popup.html",
 		"default_icon": "img/folder.png"
 	},
-	"permissions": ["bookmarks", "downloads"],
+	"permissions": ["bookmarks", "downloads"]
 }
