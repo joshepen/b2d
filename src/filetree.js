@@ -10,7 +10,7 @@ import { updateCheckbox } from "./bookmark-utils.js";
 export function createFileTree(parentElement, bookmarkList) {
   bookmarkList.forEach((bookmark) => {
     const wrapperDiv = document.createElement("div");
-    wrapperDiv.style = "display: flex; gap: 4px; align-items: center";
+    wrapperDiv.style = "display: flex; gap: 3px; align-items: center";
     wrapperDiv.id = bookmark.id;
     parentElement.appendChild(wrapperDiv);
 
@@ -22,7 +22,7 @@ export function createFileTree(parentElement, bookmarkList) {
 
     if (bookmark.children) {
       const details = document.createElement("details");
-      details.style = "flex-grow: 1; margin-block: 4px";
+      details.style = "flex-grow: 1; margin-block: 3px";
       wrapperDiv.appendChild(details);
 
       const summary = document.createElement("summary");
@@ -46,7 +46,7 @@ export function createFileTree(parentElement, bookmarkList) {
 
       const label = document.createElement("label");
       label.textContent = bookmark.title;
-      label.style = "flex-grow: 1; margin-block: 3px; overflow-x: hidden;";
+      label.style = "flex-grow: 1;";
 
       wrapperDiv.appendChild(label);
 
