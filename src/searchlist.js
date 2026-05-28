@@ -19,7 +19,7 @@ function updateSearchList(searchTerm) {
   searchListElement.innerHTML = "";
   let labels = treeElement.querySelectorAll("label");
   labels.forEach((label) => {
-    if (label.textContent.toLowerCase().includes(searchTerm)) {
+    if (label.textContent.toLowerCase().includes(searchTerm.toLowerCase())) {
       let wrapperDiv = label.parentElement.cloneNode(true);
       wrapperDiv.addEventListener("click", () => {
         const originalDiv = treeElement.querySelector(
