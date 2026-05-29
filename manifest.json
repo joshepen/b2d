@@ -7,9 +7,5 @@
 		"default_popup": "popup.html",
 		"default_icon": "img/folder.png"
 	},
-	"permissions": ["bookmarks", "downloads"],
-	"background": {
-		"service_worker": "src/download.js",
-		"type": "module"
-	}
+	"permissions": ["bookmarks", "downloads"]
 }
