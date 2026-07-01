@@ -17,7 +17,7 @@ export function createFileTree(parentElement, bookmarkList) {
     const checkBox = document.createElement("input");
     checkBox.type = "checkbox";
     checkBox.style = "flex-shrink: 0; place-self: start; margin-top: 2px;";
-    checkBox.checked = true;
+    checkBox.checked = false;
     wrapperDiv.appendChild(checkBox);
 
     if (bookmark.children) {
