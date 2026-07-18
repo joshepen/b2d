@@ -12,6 +12,7 @@ export function initDownloadButton() {
 }
 async function downloadBookmarks() {
   // TODO re-add download single. probably split up download and zip making
+  // TODO add option for structured or not
   await downloadBatchStructured();
 }
 
