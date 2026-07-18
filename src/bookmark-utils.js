@@ -23,8 +23,8 @@ export function buildBookmarkMap(bookmarks, map = new Map()) {
 
 export function bookmarkToString(bookmark) {
   const entries = {
-    Name: bookmark.title,
-    Exec: `xdg-open ${bookmark.url}`,
+    Name: bookmark.querySelector(":scope > label").textContent,
+    Exec: `xdg-open ${bookmark.dataset.url}`,
     Type: "Application",
     Categories: "Web;",
   };

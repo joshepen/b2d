@@ -12,6 +12,7 @@ export function createFileTree(parentElement, bookmarkList) {
     const wrapperDiv = document.createElement("div");
     wrapperDiv.style = "display: flex; gap: 3px; align-items: center";
     wrapperDiv.id = bookmark.id;
+    wrapperDiv.dataset.url = bookmark.url;
     parentElement.appendChild(wrapperDiv);
 
     const checkBox = document.createElement("input");
