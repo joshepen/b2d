@@ -4,9 +4,6 @@ import { bookmarkToString } from "./bookmark-utils.js";
 export function initDownloadButton() {
   const button = document.getElementById("download");
   button.addEventListener("click", async () => {
-    const ids = getSelectedBookmarkIds();
-    const treeElement = document.getElementById("bookmark-tree");
-    // const selectedBookmarks = ids.map((id) => getBookmarkById(id, bookmarks));
     await downloadBookmarks();
   });
 }
