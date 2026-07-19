@@ -12,8 +12,9 @@ export function initDownloadButton() {
 }
 async function downloadBookmarks() {
   // TODO re-add download single. probably split up download and zip making
-  // TODO add option for structured or not
-  await downloadBatchStructured();
+  await downloadBatch(
+    await chrome.storage.local.get("keep-dir-structure")["keep-dir-structure"],
+  );
 }
 
 // function downloadSingle(bookmark) {
@@ -34,16 +35,23 @@ async function downloadBookmarks() {
 //   );
 // }
 
-function zipFile(zip, dir, bookmark) {
+function zipFile(zip, bookmark, dir) {
   const s = bookmarkToString(bookmark);
-  const filename = `${dir}/${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
+  const filename = `${dir ? dir + "/" : ""}${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
   zip.file(filename, s);
 }
 
-async function downloadBatchStructured() {
+async function downloadBatch(structured) {
   const treeElement = document.getElementById("bookmark-tree");
   const zip = new JSZip();
-  await createZipStructured(zip, "desktop-files/", treeElement);
+
+  if (structured) {
+    console.log("STRUCTURED");
+    await createZip(zip, treeElement, "desktop-files/");
+  } else {
+    console.log("UNSTRUCTURED");
+    await createZip(zip, treeElement);
+  }
 
   const blob = await zip.generateAsync({ type: "blob" });
   const url = URL.createObjectURL(blob);
@@ -51,23 +59,26 @@ async function downloadBatchStructured() {
     URL.revokeObjectURL(url);
   });
 }
-async function createZipStructured(zip, dir, folderElement) {
+async function createZip(zip, folderElement, dir) {
+  // TODO add checking if they're actually checked lol
   const items = folderElement.querySelectorAll(":scope > .bookmark-item");
 
   items.forEach((item) => {
-    zipFile(zip, dir, item);
+    zipFile(zip, item, dir);
   });
 
   const folders = folderElement.querySelectorAll(":scope > .bookmark-folder");
   for (const folder of folders) {
-    await createZipStructured(
+    await createZip(
       zip,
-      dir +
-        folder
-          .querySelector("details > summary")
-          .textContent.replaceAll("/", "") +
-        "/",
       folder.querySelector("details > div"),
+      dir
+        ? dir +
+            folder
+              .querySelector("details > summary")
+              .textContent.replaceAll("/", "") +
+            "/"
+        : null,
     );
   }
 }
