@@ -12,4 +12,4 @@ const treeElement = document.getElementById("bookmark-tree");
 createFileTree(treeElement, bookmarks);
 initSearchBar();
 initDownloadButton(bookmarks);
-initSettings();
+await initSettings();

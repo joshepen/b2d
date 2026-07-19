@@ -1,4 +1,4 @@
-export function initSettings() {
+export async function initSettings() {
   const settingsButton = document.getElementById("settings-button");
   const settingsPanel = document.getElementById("settings-panel");
 
@@ -17,7 +17,8 @@ export function initSettings() {
   });
 
   // Update stored values
-  document.querySelectorAll("input.setting").forEach((element) => {
+  document.querySelectorAll("input.setting").forEach(async (element) => {
+    element.checked = (await chrome.storage.local.get(element.id))[element.id];
     element.addEventListener("change", async (e) => {
       console.log("FIRING");
       await chrome.storage.local.set({ [e.target.id]: e.target.checked });

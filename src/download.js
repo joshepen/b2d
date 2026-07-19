@@ -13,7 +13,9 @@ export function initDownloadButton() {
 async function downloadBookmarks() {
   // TODO re-add download single. probably split up download and zip making
   await downloadBatch(
-    await chrome.storage.local.get("keep-dir-structure")["keep-dir-structure"],
+    (await chrome.storage.local.get("keep-dir-structure"))[
+      "keep-dir-structure"
+    ],
   );
 }
 
@@ -37,7 +39,7 @@ async function downloadBookmarks() {
 
 function zipFile(zip, bookmark, dir) {
   const s = bookmarkToString(bookmark);
-  const filename = `${dir ? dir + "/" : ""}${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
+  const filename = `${dir}${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
   zip.file(filename, s);
 }
 
@@ -45,13 +47,7 @@ async function downloadBatch(structured) {
   const treeElement = document.getElementById("bookmark-tree");
   const zip = new JSZip();
 
-  if (structured) {
-    console.log("STRUCTURED");
-    await createZip(zip, treeElement, "desktop-files/");
-  } else {
-    console.log("UNSTRUCTURED");
-    await createZip(zip, treeElement);
-  }
+  await createZip(zip, treeElement, "desktop-files/", structured);
 
   const blob = await zip.generateAsync({ type: "blob" });
   const url = URL.createObjectURL(blob);
@@ -59,7 +55,7 @@ async function downloadBatch(structured) {
     URL.revokeObjectURL(url);
   });
 }
-async function createZip(zip, folderElement, dir) {
+async function createZip(zip, folderElement, dir, structured) {
   // TODO add checking if they're actually checked lol
   const items = folderElement.querySelectorAll(":scope > .bookmark-item");
 
@@ -72,13 +68,14 @@ async function createZip(zip, folderElement, dir) {
     await createZip(
       zip,
       folder.querySelector("details > div"),
-      dir
+      structured
         ? dir +
             folder
               .querySelector("details > summary")
               .textContent.replaceAll("/", "") +
             "/"
-        : null,
+        : dir,
+      structured,
     );
   }
 }
