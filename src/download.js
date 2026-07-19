@@ -11,35 +11,44 @@ export function initDownloadButton() {
   });
 }
 async function downloadBookmarks() {
-  // TODO re-add download single. probably split up download and zip making
-  await downloadBatch(
-    (await chrome.storage.local.get("keep-dir-structure"))[
+  // TODO add snake case
+  const bookmarks = document
+    .getElementById("bookmark-tree")
+    .querySelectorAll("div.bookmark-item:has( > input:checked)");
+  const numBookmarks = bookmarks.length;
+
+  if (numBookmarks == 1) {
+    downloadSingle(bookmarks[0]);
+  } else if (numBookmarks > 1) {
+    const structured = (await chrome.storage.local.get("keep-dir-structure"))[
       "keep-dir-structure"
-    ],
+    ];
+    await downloadBatch(structured);
+  }
+  // Do nothing if number of bookmarks < 1
+}
+
+function downloadSingle(bookmark) {
+  const blob = new Blob([bookmarkToString(bookmark)], {
+    type: "application/octet-stream",
+  });
+  const url = URL.createObjectURL(blob);
+  const filename = getFilename(bookmark);
+
+  chrome.downloads.download(
+    {
+      url,
+      filename,
+    },
+    () => {
+      URL.revokeObjectURL(url);
+    },
   );
 }
 
-// function downloadSingle(bookmark) {
-//   const blob = new Blob([bookmarkToString(bookmark)], {
-//     type: "application/octet-stream",
-//   });
-//   const url = URL.createObjectURL(blob);
-//   const filename = `${bookmark.title}.desktop`.replace("/", "");
-//
-//   chrome.downloads.download(
-//     {
-//       url,
-//       filename,
-//     },
-//     () => {
-//       URL.revokeObjectURL(url);
-//     },
-//   );
-// }
-
 function zipFile(zip, bookmark, dir) {
   const s = bookmarkToString(bookmark);
-  const filename = `${dir}${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
+  const filename = getFilename(bookmark, dir);
   zip.file(filename, s);
 }
 
@@ -56,8 +65,9 @@ async function downloadBatch(structured) {
   });
 }
 async function createZip(zip, folderElement, dir, structured) {
-  // TODO add checking if they're actually checked lol
-  const items = folderElement.querySelectorAll(":scope > .bookmark-item");
+  const items = folderElement.querySelectorAll(
+    ":scope > .bookmark-item:has(> input:checked)",
+  );
 
   items.forEach((item) => {
     zipFile(zip, item, dir);
@@ -78,4 +88,8 @@ async function createZip(zip, folderElement, dir, structured) {
       structured,
     );
   }
+}
+
+function getFilename(bookmark, dir) {
+  return `${dir ?? ""}${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
 }
