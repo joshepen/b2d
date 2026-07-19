@@ -21,12 +21,74 @@
 <body>
 	<div style="padding: 10px; background-color: #1d212d;">
 		<div
-			style="display: flex; flex-direction: column; width: 300px; background-color: #13161e; padding: 10px;">
-			<input type="search" id="search-bar" />
-			<div id="search-results-list"
-				style="display:flex; flex-direction: column; width: 100%; gap: 4px"></div>
-			<div id="bookmark-tree" style="display:flex; flex-direction: column; width: 100%;"></div>
-			<button id="download" class="download-btn" style="margin-top: 18px;">Download</button>
+			style="display: flex; flex-direction: column; width: 300px; background-color: #13161e; padding: 10px; gap: 10px;">
+			<div style="display: flex; align-items: center; gap: 0.5rem;">
+				<input type="search" id="search-bar" style="
+        height: 2.5rem;
+        box-sizing: border-box;
+        margin: 0;
+    " />
+				<div style="position: relative; flex-shrink: 0;">
+					<button id="settings-button" class="outline secondary" aria-label="Settings"
+						style="
+        border-radius: 50%;
+        width: 2.5rem;
+        aspect-ratio: 1;
+        padding: 0;
+        box-sizing: border-box;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    ">
+						<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+							viewBox="0 0 24 24" fill="none" stroke="currentColor"
+							stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+							<circle cx="12" cy="12" r="3"></circle>
+							<path
+								d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z">
+							</path>
+						</svg>
+					</button>
+
+					<div id="settings-panel" style="
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        width: 220px;
+        background-color: #1d212d;
+        border: 1px solid #2a2f3d;
+        border-radius: 8px;
+        padding: 12px 14px;
+        gap: 12px;
+        flex-direction: column;
+        z-index: 10;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    ">
+						<h3 style="margin-bottom: 0;">Settings</h3>
+						<label
+							style="display:flex; gap:4px; font-size: 0.85rem; margin:0; justify-content: between; align-items: center;">
+							Keep directory structure
+							<input id="keep-dir-structure" class="setting" type="checkbox"
+								role="switch" />
+						</label>
+						<label
+							style="display:flex; gap:4px; font-size: 0.85rem; margin:0; justify-content: between; align-items: center;">
+							Snake case filenames
+							<input id="snake-case" class="setting" type="checkbox"
+								role="switch" />
+						</label>
+					</div>
+				</div>
+			</div>
+			<div style="display:flex; flex-direction: column;">
+				<div id="search-results-list"
+					style="display:flex; flex-direction: column; width: 100%; gap: 4px"></div>
+				<div id="bookmark-tree" style="display:flex; flex-direction: column; width: 100%;">
+				</div>
+			</div>
+			<button id="download" class="download-btn">Download</button>
 		</div>
 	</div>
 	<script type="module" src="src/popup.js"></script>
