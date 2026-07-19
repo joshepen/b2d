@@ -16,7 +16,16 @@ export async function initSettings() {
 
   // Update stored values
   document.querySelectorAll("input.setting").forEach(async (element) => {
-    element.checked = (await chrome.storage.local.get(element.id))[element.id];
+    const elementStatus = (await chrome.storage.local.get(element.id))[
+      element.id
+    ];
+    if (elementStatus === undefined) {
+      // Default to true first time
+      chrome.storage.local.set({ [element.id]: true });
+      element.checked = true;
+    } else {
+      element.checked = elementStatus;
+    }
     element.addEventListener("change", async (e) => {
       await chrome.storage.local.set({ [e.target.id]: e.target.checked });
     });
