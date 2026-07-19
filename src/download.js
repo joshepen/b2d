@@ -1,4 +1,4 @@
-import { getSelectedBookmarkIds, getBookmarkById } from "./filetree.js";
+import { SETTING_STRUCTURED_ID, SETTING_SNAKE_CASE_ID } from "./constants.js";
 import { bookmarkToString } from "./bookmark-utils.js";
 
 export function initDownloadButton() {
@@ -8,7 +8,6 @@ export function initDownloadButton() {
   });
 }
 async function downloadBookmarks() {
-  // TODO add snake case
   const bookmarks = document
     .getElementById("bookmark-tree")
     .querySelectorAll("div.bookmark-item:has( > input:checked)");
@@ -17,20 +16,20 @@ async function downloadBookmarks() {
   if (numBookmarks == 1) {
     downloadSingle(bookmarks[0]);
   } else if (numBookmarks > 1) {
-    const structured = (await chrome.storage.local.get("keep-dir-structure"))[
-      "keep-dir-structure"
+    const structured = (await chrome.storage.local.get(SETTING_STRUCTURED_ID))[
+      SETTING_STRUCTURED_ID
     ];
     await downloadBatch(structured);
   }
   // Do nothing if number of bookmarks < 1
 }
 
-function downloadSingle(bookmark) {
+async function downloadSingle(bookmark) {
   const blob = new Blob([bookmarkToString(bookmark)], {
     type: "application/octet-stream",
   });
   const url = URL.createObjectURL(blob);
-  const filename = getFilename(bookmark);
+  const filename = await getFilename(bookmark);
 
   chrome.downloads.download(
     {
@@ -43,9 +42,9 @@ function downloadSingle(bookmark) {
   );
 }
 
-function zipFile(zip, bookmark, dir) {
+async function zipFile(zip, bookmark, dir) {
   const s = bookmarkToString(bookmark);
-  const filename = getFilename(bookmark, dir);
+  const filename = await getFilename(bookmark, dir);
   zip.file(filename, s);
 }
 
@@ -66,9 +65,9 @@ async function createZip(zip, folderElement, dir, structured) {
     ":scope > .bookmark-item:has(> input:checked)",
   );
 
-  items.forEach((item) => {
-    zipFile(zip, item, dir);
-  });
+  for (const item of items) {
+    await zipFile(zip, item, dir);
+  }
 
   const folders = folderElement.querySelectorAll(":scope > .bookmark-folder");
   for (const folder of folders) {
@@ -87,6 +86,17 @@ async function createZip(zip, folderElement, dir, structured) {
   }
 }
 
-function getFilename(bookmark, dir) {
-  return `${dir ?? ""}${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
+async function getFilename(bookmark, dir) {
+  let filename = `${dir ?? ""}${bookmark.querySelector(":scope > label").textContent.replaceAll("/", "")}.desktop`;
+  if (
+    (await chrome.storage.local.get(SETTING_SNAKE_CASE_ID))[
+      SETTING_SNAKE_CASE_ID
+    ]
+  ) {
+    // Ik this isn't real snake case but I'm not converting pascal or camel or whatever
+    console.log("SNAKE");
+    filename = filename.toLowerCase();
+    filename = filename.replaceAll(" ", "_");
+  } else console.log("NO SNAKE");
+  return filename;
 }
