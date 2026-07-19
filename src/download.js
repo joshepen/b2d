@@ -94,9 +94,8 @@ async function getFilename(bookmark, dir) {
     ]
   ) {
     // Ik this isn't real snake case but I'm not converting pascal or camel or whatever
-    console.log("SNAKE");
     filename = filename.toLowerCase();
     filename = filename.replaceAll(" ", "_");
-  } else console.log("NO SNAKE");
+  }
   return filename;
 }
